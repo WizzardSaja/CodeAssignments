@@ -1,0 +1,20 @@
+using MongoDB.Driver;
+
+public class OrderService
+{
+    public void AddOrder(Order order)
+    {
+        var client = new MongoClient("your_connection_string");
+        var database = client.GetDatabase("YourDatabaseName");
+        var collection = database.GetCollection<Order>("Orders");
+        collection.InsertOne(order);
+    }
+
+    public List<Order> GetOrders()
+    {
+        var client = new MongoClient("your_connection_string");
+        var database = client.GetDatabase("YourDatabaseName");
+        var collection = database.GetCollection<Order>("Orders");
+        return collection.Find(_ => true).ToList();
+    }
+}
